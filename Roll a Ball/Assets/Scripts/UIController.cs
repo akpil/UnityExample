@@ -5,11 +5,21 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
     public Text ScoreText;
+    public Text FinishText;
+
+    public GameObject RestartButton;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        FinishText.text = "";
+        RestartButton.SetActive(false);
+    }
+
+    public void ShowFinish()
+    {
+        FinishText.text = "Finish!!!";
+        RestartButton.SetActive(true);
+    }
 
     public void ShowScore(int score)
     {
