@@ -10,7 +10,7 @@ public class CameraMover : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerTransform = player.GetComponent<Transform>();
+        playerTransform = player.transform; //player.GetComponent<Transform>();
         offset = transform.position - playerTransform.position;
 	}
 	
