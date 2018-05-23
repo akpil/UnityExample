@@ -13,7 +13,6 @@ public class Pickup : MonoBehaviour {
 	void Start () {
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         gameControl = controller.GetComponent<GameController>();
-
         RotationPerFrame = RotationPerSeond * Time.fixedDeltaTime;
     }
 
