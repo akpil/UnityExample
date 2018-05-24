@@ -8,10 +8,16 @@ public class PlayerController : MonoBehaviour {
     public float Speed;
     public float xMin, xMax, zMin, zMax;
     public float tiltAngle;
+
+    public Transform Bolt;
+    public Transform BoltPosition;
+    public float firePeriod;
+    private float nextFireTime;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -20,12 +26,25 @@ public class PlayerController : MonoBehaviour {
 
         rb.velocity = new Vector3(horizontal, 0, vertical) * Speed;
 
-        Debug.Log(horizontal);
-
         transform.rotation = Quaternion.Euler(0,0, -horizontal * tiltAngle);
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, xMin, xMax)
                                         ,0
                                         , Mathf.Clamp(transform.position.z, zMin, zMax));
-	}
+
+        if (Input.GetButton("Fire1"))
+        {
+            if (nextFireTime <= 0)
+            {
+                Transform newBolt = Instantiate(Bolt);
+                newBolt.position = BoltPosition.position;
+                nextFireTime = firePeriod;
+                //GameObject newBolt = Instantiate(Bolt);
+                //newBolt.transform.position = BoltPosition.position;
+                //nextFireTime = firePeriod;
+            }
+            
+        }
+        nextFireTime -= Time.deltaTime;
+    }
 }

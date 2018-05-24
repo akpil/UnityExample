@@ -12,9 +12,14 @@ public class Bolt : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.up * velocity;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.tag);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }
