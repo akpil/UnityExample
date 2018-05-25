@@ -19,6 +19,8 @@ public class Hazard : MonoBehaviour {
         {
             GameObject explosion = Instantiate(explosionEffect);
             explosion.transform.position = transform.position;
+            Destroy(other.gameObject);
+            Destroy(gameObject);
         }
 
     }

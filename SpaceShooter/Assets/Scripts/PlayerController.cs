@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
     public float firePeriod;
     private float nextFireTime;
 
+    public GameObject dieEffect;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -46,5 +48,11 @@ public class PlayerController : MonoBehaviour {
             
         }
         nextFireTime -= Time.deltaTime;
+    }
+
+    private void OnDestroy()
+    {
+        GameObject effect = Instantiate(dieEffect);
+        effect.transform.position = transform.position;
     }
 }
