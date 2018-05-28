@@ -15,25 +15,39 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         timePeriod = 3;
+        StartCoroutine(SpawnHazards(timePeriod));
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (timePeriod > 0)
+
+    private IEnumerator SpawnHazards(float timeP)
+    {
+        while (true)
         {
-            timePeriod -= Time.deltaTime;
-        }
-        else
-        {
+            yield return new WaitForSeconds(timeP);
+
             int astroidCount = Random.Range(1, maximumAstroidCount + 1);
+            int enemyCount = Random.Range(1, maximumEnemyCount + 1);
             for (int i = 0; i < astroidCount; i++)
             {
                 GameObject ast = Instantiate(Astroids[Random.Range(0, Astroids.Length)]);
                 ast.transform.position = new Vector3(Random.Range(-5f, 5f),
                                                     ast.transform.position.y,
-                                                    ast.transform.position.z); 
+                                                    ast.transform.position.z);
+                yield return new WaitForSeconds(Random.Range(0,.2f));
             }
-            timePeriod = 3;
+            for (int i = 0; i < enemyCount; i++)
+            {
+                GameObject enemy = Instantiate(Enemy);
+                enemy.transform.position = new Vector3(Random.Range(-5f, 5f),
+                                                    enemy.transform.position.y,
+                                                    enemy.transform.position.z);
+                yield return new WaitForSeconds(Random.Range(0, .2f));
+            }
         }
+        
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        
 	}
 }
