@@ -15,17 +15,9 @@ public class Bolt : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
-        // 부딪히는 모든 물체 파괴
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Player"))
         {
-            //Destroy(other.gameObject);
-            //other.gameObject.SetActive(false);
-            Destroy(gameObject);
-        }
-        else if (other.CompareTag("Player"))
-        {
-
+            Destroy(other.gameObject);
         }
     }
 

@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject dieEffect;
 
+    public GameController controller;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -54,5 +56,6 @@ public class PlayerController : MonoBehaviour {
     {
         GameObject effect = Instantiate(dieEffect);
         effect.transform.position = transform.position;
+        controller.GameOver();
     }
 }

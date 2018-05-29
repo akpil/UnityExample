@@ -26,7 +26,7 @@ public class EnemyMovement : MonoBehaviour {
         rb.velocity = new Vector3(verticalSpeed, rb.velocity.y, rb.velocity.z);
         transform.rotation = Quaternion.Euler(0, 180, verticalSpeed  * 6);
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         rb.velocity = new Vector3(0f, rb.velocity.y, rb.velocity.z);
         transform.rotation = Quaternion.Euler(0, 180, 0);
         //rb.velocity = transform.forward * Speed;
