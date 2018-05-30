@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody rb;
@@ -18,9 +19,11 @@ public class PlayerController : MonoBehaviour {
 
     public GameController controller;
 
+    private SoundController sound;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
+        sound = (GameObject.FindGameObjectWithTag("Audio")).GetComponent<SoundController>();
     }
 	
 	// Update is called once per frame
@@ -43,6 +46,8 @@ public class PlayerController : MonoBehaviour {
                 Transform newBolt = Instantiate(Bolt);
                 newBolt.position = BoltPosition.position;
                 nextFireTime = firePeriod;
+                sound.PlayEffectSound(4);
+                
                 //GameObject newBolt = Instantiate(Bolt);
                 //newBolt.transform.position = BoltPosition.position;
                 //nextFireTime = firePeriod;

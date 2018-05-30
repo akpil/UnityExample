@@ -11,13 +11,17 @@ public class EnemyMovement : MonoBehaviour {
 
     public float maximumShootPeriod;
 
+    private SoundController audio;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * Speed;
         StartCoroutine(Shoot());
         StartCoroutine(Tilt());
-	}
+        audio = (GameObject.FindGameObjectWithTag("Audio")).GetComponent<SoundController>();
+
+    }
 
     private IEnumerator Tilt()
     {
@@ -40,6 +44,7 @@ public class EnemyMovement : MonoBehaviour {
             Transform newBolt = Instantiate(bolt);
             newBolt.position = BoltPos.position;
             newBolt.rotation = BoltPos.rotation;
+            audio.PlayEffectSound(3);
         }
     }
 
