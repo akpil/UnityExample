@@ -16,14 +16,33 @@ public class ZombieMover : MonoBehaviour {
     [SerializeField]
     private Transform HPLocation;
 
+    private PlayerController player;
+    [SerializeField]
+    private float HP;
+
+    private Coroutine stateMachine;
+
     private ZombieState state;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        player = (GameObject.FindGameObjectWithTag("Player")).
+                                GetComponent<PlayerController>();
         state = ZombieState.Move;
-        StartCoroutine(State());
+        stateMachine = StartCoroutine(State());
 	}
+
+    public void Hit(float damage)
+    {
+        Debug.Log("zombie hit with : " + damage.ToString());
+        HP -= damage;
+        if (HP <= 0)
+        {
+            state = ZombieState.Dead;
+            
+        }
+    }
 
     private IEnumerator State()
     {
@@ -41,8 +60,14 @@ public class ZombieMover : MonoBehaviour {
                     break;
                 case ZombieState.Attack:
                     anim.SetBool(AnimationHashList.AttackAnimHash, true);
+                    player.Hit(4.3f);
                     yield return new WaitForSeconds(1f);
                     anim.SetBool(AnimationHashList.AttackAnimHash, false);
+                    yield return new WaitForSeconds(1f);
+                    break;
+                case ZombieState.Dead:
+                    anim.SetBool(AnimationHashList.IsDeadAnimHash, true);
+                    StopCoroutine(stateMachine);
                     yield return new WaitForSeconds(1f);
                     break;
             }

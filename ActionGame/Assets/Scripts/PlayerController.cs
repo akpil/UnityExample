@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    private Animator anim;
+
 	// Use this for initialization
 	void Start () {
-		
+        anim = GetComponent<Animator>();
 	}
     public void LeftClick()
     {
@@ -16,6 +18,23 @@ public class PlayerController : MonoBehaviour {
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
     }
+
+    public void Attack()
+    {
+        anim.SetBool(AnimationHashList.AttackAnimHash, true);
+    }
+
+    public void SetAttackFalse()
+    {
+        anim.SetBool(AnimationHashList.AttackAnimHash, false);
+        
+    }
+
+    public void Hit(float damage)
+    {
+        //Debug.Log("zombie attack palyer with damage : " + damage.ToString());
+    }
+
     // Update is called once per frame
     void Update () {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -25,6 +44,11 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             RightClick();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Attack();
         }
 	}
 }

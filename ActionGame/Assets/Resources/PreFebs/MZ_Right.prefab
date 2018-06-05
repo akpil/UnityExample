@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114489921457733392}
   m_Layer: 8
   m_Name: MZ_Right
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   HPLocation: {fileID: 4602107961223692}
+  HP: 2
 --- !u!212 &212403349215500276
 SpriteRenderer:
   m_ObjectHideFlags: 1
