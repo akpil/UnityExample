@@ -178,7 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   HPLocation: {fileID: 4602107961223692}
-  HP: 2
+  MaxHP: 0
+  StartPos: {x: 0, y: 0, z: 0}
 --- !u!212 &212403349215500276
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -18,26 +18,37 @@ public class ZombieMover : MonoBehaviour {
 
     private PlayerController player;
     [SerializeField]
-    private float HP;
+    private float MaxHP;
+    private float currentHP;
 
     private Coroutine stateMachine;
 
     private ZombieState state;
+
+    [SerializeField]
+    private Vector3 StartPos;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        StartPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         player = (GameObject.FindGameObjectWithTag("Player")).
                                 GetComponent<PlayerController>();
         state = ZombieState.Move;
+        
+    }
+
+    private void OnEnable()
+    {
+        currentHP = MaxHP;
         stateMachine = StartCoroutine(State());
-	}
+    }
 
     public void Hit(float damage)
     {
         Debug.Log("zombie hit with : " + damage.ToString());
-        HP -= damage;
-        if (HP <= 0)
+        currentHP -= damage;
+        if (currentHP <= 0)
         {
             state = ZombieState.Dead;
             
@@ -80,6 +91,19 @@ public class ZombieMover : MonoBehaviour {
             state = ZombieState.Attack;
             anim.SetBool(AnimationHashList.IsWalkAnimHash, false);
         }
+    }
+
+    public void Dead()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        transform.position = StartPos;
+        state = ZombieState.Move;
+        anim.SetBool(AnimationHashList.IsDeadAnimHash, false);
+        currentHP = MaxHP;
     }
 
     // Update is called once per frame
