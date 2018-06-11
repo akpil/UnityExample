@@ -40,6 +40,7 @@ public class ZombieMover : MonoBehaviour {
 
     private void OnEnable()
     {
+        SoundController.inst.PlayeEffectSound(eSoundEffect.ZombieSpawn);
         currentHP = MaxHP;
         stateMachine = StartCoroutine(State());
     }
@@ -50,6 +51,7 @@ public class ZombieMover : MonoBehaviour {
         currentHP -= damage;
         if (currentHP <= 0)
         {
+            SoundController.inst.PlayeEffectSound(eSoundEffect.ZombieDie);
             state = ZombieState.Dead;
             
         }

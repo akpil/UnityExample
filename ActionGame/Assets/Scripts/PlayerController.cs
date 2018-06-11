@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Attack()
     {
+        SoundController.inst.PlayeEffectSound(eSoundEffect.Attack);
         anim.SetBool(AnimationHashList.AttackAnimHash, true);
     }
 
