@@ -60,7 +60,9 @@ public class ZombieMover : MonoBehaviour {
         {
             SoundController.inst.PlayeEffectSound(eSoundEffect.ZombieDie);
             state = ZombieState.Dead;
-            
+            //bar = control.GetHPBar();
+            //bar.transform.position = HPLocation.position;
+            bar.SetIncome(1.5f);
         }
     }
 

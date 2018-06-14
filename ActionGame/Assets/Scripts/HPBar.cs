@@ -11,9 +11,17 @@ public class HPBar : MonoBehaviour {
     [SerializeField]
     float ActiveTime;
 
+    [SerializeField]
+    GameObject BarBG, Income;
+
+    [SerializeField]
+    Text IncomeText;
+
     private void OnEnable()
     {
         StartCoroutine(timer());
+        Income.SetActive(false);
+        BarBG.SetActive(true);
     }
 
     private IEnumerator timer()
@@ -25,6 +33,13 @@ public class HPBar : MonoBehaviour {
     public void SetBar(float amount)
     {
         Bar.fillAmount = amount;
+    }
+
+    public void SetIncome(float amount)
+    {
+        IncomeText.text = amount.ToString("F1");
+        BarBG.gameObject.SetActive(false);
+        Income.SetActive(true);
     }
 
 	// Use this for initialization

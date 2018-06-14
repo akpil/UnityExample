@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -21,10 +22,37 @@ public class GameController : MonoBehaviour {
 
     private Coroutine enemySpawn;
 
+    [SerializeField]
+    private float money;
+
+    public static GameController inst;
+
     private void Awake()
     {
         zombieList = new List<ZombieMover>();
         HPBarList = new List<HPBar>();
+        if (inst == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            inst = this;
+        }
+        else
+        {
+            if (inst != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    public void LoadLobby()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void AddMoney()
+    {
+        money += 10;
     }
 
     // Use this for initialization
@@ -34,7 +62,8 @@ public class GameController : MonoBehaviour {
 
         string da = (Resources.Load<TextAsset>("Data/Sample")).text;
         Debug.Log(da);
-	}
+        money = 0;
+    }
 
     public void Save()
     {
