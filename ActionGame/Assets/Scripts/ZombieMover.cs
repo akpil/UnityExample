@@ -9,6 +9,8 @@ public enum ZombieState
 
 public class ZombieMover : MonoBehaviour {
 
+    private GameController control;
+
     private Rigidbody2D rb;
     private Animator anim;
     [SerializeField]
@@ -32,6 +34,8 @@ public class ZombieMover : MonoBehaviour {
         StartPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        control = (GameObject.FindGameObjectWithTag("GameController")).
+                                GetComponent<GameController>();
         player = (GameObject.FindGameObjectWithTag("Player")).
                                 GetComponent<PlayerController>();
         state = ZombieState.Move;
@@ -49,6 +53,9 @@ public class ZombieMover : MonoBehaviour {
     {
         Debug.Log("zombie hit with : " + damage.ToString());
         currentHP -= damage;
+        HPBar bar = control.GetHPBar();
+        bar.SetBar(currentHP / MaxHP);
+        bar.transform.position = HPLocation.position;
         if (currentHP <= 0)
         {
             SoundController.inst.PlayeEffectSound(eSoundEffect.ZombieDie);
